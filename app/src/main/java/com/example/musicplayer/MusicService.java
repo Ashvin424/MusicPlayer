@@ -35,6 +35,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
     MyBinder mBinder = new MyBinder();
     MediaPlayer mediaPlayer;
     ArrayList<MusicFiles> musicFiles = new ArrayList<>();
+    private ArrayList<MusicFiles> albumSongs = new ArrayList<>();
     Uri uri;
     int position = -1;
     ActionPlaying actionPlaying;
@@ -52,6 +53,7 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         mediaSessionCompat = new MediaSessionCompat(getBaseContext(),"My Audio");
 
     }
+
 
     @Nullable
     @Override
@@ -149,11 +151,10 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         }
 
         // Ensure `listSongs` is populated
-        musicFiles = listSongs;
         position = startPosition;
 
         // Create and start the new MediaPlayer instance
-        if (musicFiles != null && !musicFiles.isEmpty()) {
+        if (albumSongs != null && !albumSongs.isEmpty()) {
             uri = Uri.parse(musicFiles.get(position).getPath());
             createMediaPlayer(position);
             if (mediaPlayer != null) {
@@ -324,13 +325,21 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         }
     }
     void nextBtnClicked() {
-        if (actionPlaying != null) {
-            actionPlaying.nextBtnClicked();
+        if (albumSongs != null && !albumSongs.isEmpty()) {
+            position = (position + 1) % albumSongs.size();
+            createMediaPlayer(position);
+            mediaPlayer.start();
+            onCompleted();
+            showNotification(R.drawable.ic_pause);
         }
     }
     void prevBtnClicked() {
-        if (actionPlaying != null) {
-            actionPlaying.prevBtnClicked();
+        if (albumSongs != null && !albumSongs.isEmpty()) { // Use albumSongs here
+            position = (position - 1 < 0 ? albumSongs.size() - 1 : position - 1);
+            createMediaPlayer(position);
+            mediaPlayer.start();
+            onCompleted();
+            showNotification(R.drawable.ic_pause);
         }
     }
     void playPauseBtnClicked() {
@@ -339,6 +348,6 @@ public class MusicService extends Service implements MediaPlayer.OnCompletionLis
         }
     }
     public void setAlbumSongs(ArrayList<MusicFiles> albumSongs) {
-        this.musicFiles = albumSongs;
+        this.albumSongs = albumSongs;
     }
 }
