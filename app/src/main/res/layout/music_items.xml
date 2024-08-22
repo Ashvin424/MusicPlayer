@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/audio_item"
+    android:background="#161717"
+    android:layout_marginTop="3dp">
+
+    <ImageView
+        android:id="@+id/music_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:padding="5dp" />
+
+<!--  .................................................................................
+ Add below given tags for autoscrolable text in one line if text is more than screen size after apllying this tags in xml goto java file where you initialize this text view and do text_view.setSlected(true) and you will see that your text is scoll automatically in  vertical right to left
+
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+ .......................................................................................-->
+
+    <TextView
+        android:id="@+id/music_file_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/music_img"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/more_menu"
+        android:text="File Name"
+        android:textColor="@color/white"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        />
+    <ImageView
+        android:id="@+id/more_menu"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_more"
+        android:layout_alignParentRight="true"
+        android:padding="10dp" />
+
+</RelativeLayout>
