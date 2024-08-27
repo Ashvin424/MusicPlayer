@@ -55,7 +55,12 @@ public class NowPlyaingBottomFragment extends Fragment implements ServiceConnect
         nextBtn = view.findViewById(R.id.skip_next_bottom);
         playPauseBtn = view.findViewById(R.id.play_pause_miniPlayer);
 
-        nextBtn.setOnClickListener(v -> handleNextButtonClick());
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleNextButtonClick();
+            }
+        });
         playPauseBtn.setOnClickListener(v -> handlePlayPauseButtonClick());
 
         return view;
